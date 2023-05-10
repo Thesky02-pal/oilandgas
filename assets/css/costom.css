@@ -622,6 +622,7 @@ padding-right: 10px;
 .img-c{
   width: 293px;
     height: 121px;
+    
 }
 .disp-n{
   display: block;
@@ -637,8 +638,9 @@ padding-right: 10px;
     text-align: center;
   }
 .img-c{
-  width: 100%;
+  width: 70%;
     height: 121px;
+    margin-left: 15%;
 }
   .nav-cont{
     position: relative;

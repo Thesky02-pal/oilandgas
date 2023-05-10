@@ -1,4 +1,4 @@
-     mapboxgl.accessToken = 'pk.eyJ1Ijoic2F0bWFjZSIsImEiOiJjbGdrb281bDQwYXM3M2pwcGxhOWt2bTJ3In0.bHEg6Y0rVuU1eoGLX3hLWg';
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2F0bWFjZSIsImEiOiJjbGdrb281bDQwYXM3M2pwcGxhOWt2bTJ3In0.bHEg6Y0rVuU1eoGLX3hLWg';
 
 
 var mapContainer = document.getElementById('map');
@@ -96,17 +96,24 @@ var map2 = new mapboxgl.Map({
           // [73.856255, 18.516726],
           // [74.576782, 18.150663],
           // [72.911453,  20.385181]
-          [72.7474142, 22.1924098],
-          [75.56835,20.99685], 
+          [72.7474142, 22.1924098],  
           [73.911453,  19.385181],
-          [73.911453,  19.395181]
+          [75.56835,21.99685],  //added
+          [75.56835,20.99685],
+          
+          // [72.7474142, 22.1924098], //Added
+          // [73.911453,  19.395181]
         ];
         const markers1 = markerCoords1.map((coord, index) => {
-          const color = (index === 3) ? '#55d5a5' : '#9b9b9b';
+          const color = (index === 1) ? '#55d5a5' : '#9b9b9b';
           return new mapboxgl.Marker({ color })
             .setLngLat(coord)
             .addTo(map2);
+            
         });
+ 
+        
+
         const featureCollection1 = {
           type: 'FeatureCollection',
           features: [
@@ -114,10 +121,14 @@ var map2 = new mapboxgl.Map({
               type: 'Feature',
               geometry: {
                 type: 'LineString',
-                coordinates: markerCoords1.slice(0, 3)
+                coordinates: markerCoords1.slice(0,1),
+                coordinates: markerCoords1.slice(0,2),
+                coordinates: markerCoords1.slice(0,3)
+                
               },
+              
               properties: {
-                'stroke': '#9b9b9b',
+                'stroke': '#55d5a5',   //#9b9b9b
                 'stroke-width': 3
               }
             },
@@ -125,8 +136,9 @@ var map2 = new mapboxgl.Map({
               type: 'Feature',
               geometry: {
                 type: 'LineString',
-                coordinates: [markerCoords1[0], markerCoords1[2]],
-                coordinates: [markerCoords1[0], markerCoords1[3]]
+                coordinates: [markerCoords1[0], markerCoords1[3]],
+                coordinates: [markerCoords1[1], markerCoords1[3]],
+                // coordinates: [markerCoords1[2], markerCoords1[3]]
               },
               properties: {
                 'stroke': '#55d5a5',
@@ -136,11 +148,14 @@ var map2 = new mapboxgl.Map({
           ]
         };
 
+
         map2.on('load', function() {
           map2.addSource('line', {
             type: 'geojson',
-            data: featureCollection1
+            data: featureCollection1,
           });
+
+          
         
           map2.addLayer({
             id: 'line-layer',
